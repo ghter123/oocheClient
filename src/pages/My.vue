@@ -1,0 +1,183 @@
+<template>
+  <q-page padding>
+    <div class="myHtml">
+      <div>
+        <div class="oneBannerWrap">
+          <img class="oneBanner" src="../statics/image/banner_mybg.jpg" alt>
+          <div class="information">
+            <span>1</span>
+            <!-- <article class="msgTipContent">
+              <cite></cite>
+              <h2>
+                消息提醒
+                <i>x</i>
+              </h2>
+              <ul>
+                <li>
+                  <a>您的阿斯利康发货您的阿斯利康发货fsdaf</a>
+                </li>
+                <li>
+                  <a>
+                    <strong>您的阿斯利康发货dasf您的阿斯利康发货fsdaf</strong>
+                  </a>
+                </li>
+                <li>
+                  <a>您的阿斯利康发货fsdaf您的阿斯利康发货fsdaf</a>
+                </li>
+              </ul>
+            </article>-->
+          </div>
+          <router-link to="/default/userEdit" class="setUp"></router-link>
+
+          <div class="portraitWrap">
+            <cite class="portrait" :style="{backgroundImage: 'url(' + user.headimgurl + ')'}"></cite>
+            <p>
+              {{user.nickname}}
+              <span>
+                {{user.sex | sexFormat}}
+                <br>
+                {{user.mobilePhone}}
+              </span>
+            </p>
+          </div>
+        </div>
+
+        <ul class="linkTo">
+          <li>
+            <a @click="route(0)">我的订单</a>
+          </li>
+          <li>
+            <a class="attestation">申请认证</a>
+          </li>
+        </ul>
+
+        <article class="carManage">
+          <h1>
+            <strong>车辆管理</strong>
+            <i></i>
+          </h1>
+          <div class="slideShowAndHidden">
+            <div class="item" v-for="car in cars" :key="car.id">
+              <ul>
+                <li>
+                  <label>车牌号：</label>
+                  <input class="lmx_number" type="text" v-model="car.carNum">
+                </li>
+                <li>
+                  <label>品牌：</label>
+                  <input class="lmx_brand" type="text" v-model="car.carModel">
+                </li>
+                <li>
+                  <label>车系：</label>
+                  <input class="lmx_system" type="text" v-model="car.carDesc">
+                </li>
+              </ul>
+              <a class="editCarBtn" @click="upsertCar(car)">更新</a>
+            </div>
+            <a class="addCarBtn" @click="addCar">添加</a>
+          </div>
+        </article>
+
+        <article class="feedback">
+          <h1>
+            <strong>意见反馈</strong>
+            <i></i>
+          </h1>
+          <div class="slideShowAndHidden">
+            <!-- <textarea class="lmx_feedbackContent" placeholder="宝贝满足你的期待吗?说说你的使用心得，分享给他们呢吧！"></textarea>
+            <a
+              class="feedbackBtn"
+              href="javascript:void(0);"
+              data-text="确认"
+            >确认</a>-->
+          </div>
+        </article>
+
+        <article class="history hiddenDiv">
+          <h1>
+            <strong>浏览历史</strong>
+            <i></i>
+          </h1>
+          <div class="slideShowAndHidden">
+            <div class="none">敬请期待!</div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </q-page>
+</template>
+
+<style>
+</style>
+
+<script>
+import Car from "../model/Car";
+
+export default {
+  name: "My",
+  data() {
+    return {
+      cars: []
+    };
+  },
+  computed: {
+    user() {
+      return this.$store.state.user;
+    }
+  },
+  filters: {
+    sexFormat(sexCode) {
+      return sexCode === "1" ? "男" : "女";
+    }
+  },
+  methods: {
+    async route() {},
+    addCar() {
+      this.cars.push({
+        userId:this.$store.state.user.id,
+        id: "",
+        carNum: "",
+        carModel: "",
+        carDesc: ""
+      });
+    },
+    async upsertCar(car) {
+      try {
+        await Car.upsert(car);
+        this.$q.notify({
+          type: "positive",
+          message: "更新成功！",
+          position: "top",
+          icon: "tag_faces",
+          timeout: 1000
+        });
+        await this.review();
+      } catch (error) {
+        this.$q.notify({
+          type: "negative",
+          message: error.message,
+          position: "top",
+          timeout: 1000
+        });
+      }
+    },
+    async review() {
+      let cars = [];
+      try {
+        cars = await Car.getByUser(this.$store.state.user.id);
+      } catch (error) {
+        this.$q.notify({
+          type: "negative",
+          message: error.message,
+          position: "top",
+          timeout: 1000
+        });
+      }
+      this.cars = cars;
+    }
+  },
+  async mounted() {
+    await this.review();
+  }
+};
+</script>
