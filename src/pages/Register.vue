@@ -10,7 +10,10 @@
       <div>
         <label></label>
         <input class="ident" type="text" placeholder="验证码" v-model="checkCode">
-        <a class="codeBtn" @click="getRegisterCode">获取验证码</a>
+        <a class="codeBtn" @click="getRegisterCode" :disabled="!show">
+          <span v-show="show">获取验证码</span>
+          <span v-show="!show" class="count">{{count}} 秒</span>
+        </a>
       </div>
       <div class="btnWrap loginBtnWrap">
         <div>
@@ -35,6 +38,7 @@ import Config from "../config";
 import WebToken from "../model/WebToken";
 import User from "../model/User";
 
+const TIME_COUNT = 120;
 export default {
   name: "LayoutDefault",
   data() {
@@ -42,7 +46,10 @@ export default {
       phoneNum: "",
       wxUserInfo: null,
       checkCode: "",
-      loading: false
+      loading: false,
+      show: true,
+      count: "",
+      timer: null
     };
   },
   methods: {
@@ -86,6 +93,7 @@ export default {
           icon: "tag_faces",
           timeout: 1000
         });
+        this.initTimer();
       } catch (error) {
         this.$q.notify({
           type: "negative",
@@ -95,6 +103,21 @@ export default {
         });
       }
       this.$q.loading.hide();
+    },
+    initTimer() {
+      if (!this.timer) {
+        this.count = TIME_COUNT;
+        this.show = false;
+        this.timer = setInterval(() => {
+          if (this.count > 0 && this.count <= TIME_COUNT) {
+            this.count--;
+          } else {
+            this.show = true;
+            clearInterval(this.timer);
+            this.timer = null;
+          }
+        }, 1000);
+      }
     }
   }
 };

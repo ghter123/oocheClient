@@ -29,6 +29,13 @@ export default class User {
         return await axios.put(Config.updateUserInfo, user);
     }
 
+    static async updateOrganizationCode(userId,orgCode){
+        return await axios.put(`/jeecg/rest/user/isAgencyCertification`,{
+            orgCode,
+            userId
+        }); 
+    }
+
     static standard(user) {
         user.vehicles = _.isEmpty(user.vehicles) ? null : JSON.parse(user.vehicles);
         return user;

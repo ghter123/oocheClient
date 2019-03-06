@@ -47,7 +47,19 @@
             <a @click="route(0)">我的订单</a>
           </li>
           <li>
-            <a class="attestation">申请认证</a>
+            <a class="attestation">申请认证
+              <q-popup-edit
+                v-model="organizationCode"
+                title="请输入机构代码"
+                buttons
+                label-set="确定"
+                label-cancel="取消"
+                @save="saveOrganizationCode"
+                @cancel="cancelOrganizationCode"
+              >
+                <q-input v-model="organizationCode" style="width:200px"/>
+              </q-popup-edit>
+            </a>
           </li>
         </ul>
 
@@ -112,12 +124,14 @@
 
 <script>
 import Car from "../model/Car";
+import User from "../model/User";
 
 export default {
   name: "My",
   data() {
     return {
-      cars: []
+      cars: [],
+      organizationCode: ""
     };
   },
   computed: {
@@ -134,7 +148,7 @@ export default {
     async route() {},
     addCar() {
       this.cars.push({
-        userId:this.$store.state.user.id,
+        userId: this.$store.state.user.id,
         id: "",
         carNum: "",
         carModel: "",
@@ -174,6 +188,29 @@ export default {
         });
       }
       this.cars = cars;
+    },
+    async saveOrganizationCode(val, initialValue) {
+      try {
+        await User.updateOrganizationCode(this.$store.state.user.id,val);
+        this.$q.notify({
+          type: "positive",
+          message: "认证成功！",
+          position: "top",
+          icon: "tag_faces",
+          timeout: 1000
+        });
+        this.organizationCode = '';
+      } catch (error) {
+        this.$q.notify({
+          type: "negative",
+          message: error.message,
+          position: "top",
+          timeout: 1000
+        });
+      }
+    },
+    cancelOrganizationCode() {
+      this.organizationCode = "";
     }
   },
   async mounted() {

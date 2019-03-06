@@ -78,7 +78,8 @@ module.exports = function (ctx) {
         'QModal',
         'QTree',
         'QDatetime',
-        'QSelect'
+        'QSelect',
+        'QPopupEdit'
       ],
       directives: [
         'Ripple',
