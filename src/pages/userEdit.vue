@@ -30,12 +30,12 @@
       <tr>
         <td>部门</td>
         <td>
-          <select v-model="departId">
+          <select v-model="userInfo.departId">
             <option
               v-for="depart in departOptions"
-              :value="depart.value"
+              :value="depart.id"
               :key="depart.id"
-            >{{ depart.text }}</option>
+            >{{ depart.departName }}</option>
           </select>
         </td>
       </tr>
@@ -61,18 +61,6 @@
           <span class="phoneBtn" @click="isMobileCode=true">重新绑定</span>
         </td>
       </tr>
-      <!-- <tr v-if="isMobileCode">
-        <td>
-          <input class="phoneNumber" type="text" placeholder="请输入手机号码" v-model="userInfo.mobilePhone">
-        </td>
-        <td>
-          <input style="display:block" type="text" placeholder="验证码" v-model="mobileCode">
-          <a style="display:block" class="phoneBtn" @click="getRegisterCode" :disabled="!show">
-            <span v-show="show">获取验证码</span>
-            <span v-show="!show" class="count">{{count}} 秒</span>
-          </a>
-        </td>
-      </tr>-->
       <tr class="bottomMax">
         <td>Email</td>
         <td>
@@ -91,7 +79,7 @@
 
     <div class="btnWrap saveUserBtnWrap">
       <div>
-        <input class="btn saveUserBtn" @click="submit" value="提交">
+        <input class="btn saveUserBtn" style="text-align:center" @click="submit" value="提交">
       </div>
     </div>
 
@@ -99,10 +87,10 @@
       <div class="login">
         <div>
           <label></label>
-          <input class="phone" type="tel" placeholder="请输入手机号码" v-model="userInfo.mobilePhone">
+          <input class="phone" type="tel" placeholder="请输入手机号码" v-model="newMobilePhone">
         </div>
         <div>
-          <label></label>
+          <label style="width:36px"></label>
           <input class="ident" type="text" placeholder="验证码" v-model="mobileCode">
           <a class="codeBtn">
             <span @click="getRegisterCode" v-show="show">获取验证码</span>
@@ -114,10 +102,10 @@
         <table style="margin:10px auto 2px;width:80%;text-align: center;">
           <tr>
             <td>
-              <q-btn class="button" @click="isMobileCode=false" label="取消"/>
+              <q-btn class="button" @click="cancelNewMobilePhone" label="取消"/>
             </td>
             <td>
-              <q-btn class="button" @click="isMobileCode=false" label="确认"/>
+              <q-btn class="button" @click="applyNewMobilePhone" label="确认"/>
             </td>
           </tr>
         </table>
@@ -128,6 +116,7 @@
 
 <script>
 import User from "../model/User";
+import Organization from "../model/Organization";
 
 const TIME_COUNT = 120;
 export default {
@@ -151,7 +140,8 @@ export default {
       timer: null,
       isMobileCode: false,
       mobileCode: "",
-      departOptions: []
+      departOptions: [],
+      newMobilePhone: ""
     };
   },
   computed: {
@@ -162,7 +152,17 @@ export default {
   methods: {
     async submit() {
       try {
-        await User.updateUserInfo(this.userInfo);
+        await User.updateUserInfo({
+          citizenNo: this.userInfo.citizenNo,
+          departId: this.userInfo.departId,
+          departName: this.userInfo.departName,
+          email: this.userInfo.email,
+          empNo: this.userInfo.empNo,
+          id: this.userInfo.id,
+          mobilePhone: this.userInfo.mobilePhone,
+          realName: this.userInfo.realName,
+          sex: this.userInfo.sex
+        });
       } catch (error) {
         this.$q.notify({
           type: "negative",
@@ -206,11 +206,42 @@ export default {
           }
         }, 1000);
       }
+    },
+    cancelNewMobilePhone() {
+      this.newMobilePhone = "";
+      this.isMobileCode = false;
+    },
+    async applyNewMobilePhone() {
+      try {
+        await User.updateMobilePhone(
+          this.$store.state.user.id,
+          this.newMobilePhone,
+          this.mobileCode
+        );
+        this.$q.notify({
+          type: "positive",
+          message: "绑定新手机成功！",
+          position: "top",
+          icon: "tag_faces",
+          timeout: 1000
+        });
+        this.userInfo.mobilePhone = this.newMobilePhone;
+        this.isMobileCode = false;
+      } catch (error) {
+        this.$q.notify({
+          type: "negative",
+          message: error.message,
+          position: "top",
+          timeout: 1000
+        });
+      }
     }
   },
   async mounted() {
     try {
       this.userInfo = await User.getUserInfo(this.$store.state.user.id);
+      this.departOptions =
+        (await Organization.getDepartInfos(this.$store.state.user.id)) || [];
     } catch (error) {
       this.$q.notify({
         type: "negative",
@@ -225,7 +256,7 @@ export default {
 <style>
 .button {
   font-size: 16px;
-  width:100px;
+  width: 100px;
   border: none;
   border-radius: 12px;
   background: #04a6ef;

@@ -36,6 +36,10 @@ export default class User {
         }); 
     }
 
+    static async updateMobilePhone(userId,mobilePhone,checkCode){
+        return await axios.put(`/jeecg/rest/rebindMobile/${userId}/${mobilePhone}/${checkCode}`); 
+    }
+
     static standard(user) {
         user.vehicles = _.isEmpty(user.vehicles) ? null : JSON.parse(user.vehicles);
         return user;
