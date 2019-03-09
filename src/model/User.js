@@ -35,6 +35,12 @@ export default class User {
             userId
         }); 
     }
+    static async feedBack(userId,msg){
+        return await axios.put(`/jeecg/rest/user/isUserFeedBack`, {
+            userId,
+            msg
+        });
+    }
 
     static async updateMobilePhone(userId,mobilePhone,checkCode){
         return await axios.put(`/jeecg/rest/rebindMobile/${userId}/${mobilePhone}/${checkCode}`); 

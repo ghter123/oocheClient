@@ -44,7 +44,7 @@
 
         <ul class="linkTo">
           <li>
-            <a @click="route(0)">我的订单</a>
+            <a @click="route(1)">我的订单</a>
           </li>
           <li>
             <a class="attestation">申请认证
@@ -63,8 +63,8 @@
           </li>
         </ul>
 
-        <article class="carManage">
-          <h1>
+        <article class="carManage" :class="{ hiddenDiv: isShowCars }">
+          <h1 @click="isShowCars = !isShowCars">
             <strong>车辆管理</strong>
             <i></i>
           </h1>
@@ -90,18 +90,20 @@
           </div>
         </article>
 
-        <article class="feedback">
-          <h1>
-            <strong>意见反馈</strong>
-            <i></i>
-          </h1>
+        <article class="feedback" :class="{hiddenDiv: isShowFeedback}">
+          <div @click="feedBackMsg=''">
+            <h1 @click="isShowFeedback = !isShowFeedback">
+              <strong>意见反馈</strong>
+              <i></i>
+            </h1>
+          </div>
           <div class="slideShowAndHidden">
-            <!-- <textarea class="lmx_feedbackContent" placeholder="宝贝满足你的期待吗?说说你的使用心得，分享给他们呢吧！"></textarea>
-            <a
-              class="feedbackBtn"
-              href="javascript:void(0);"
-              data-text="确认"
-            >确认</a>-->
+            <textarea
+              v-model="feedBackMsg"
+              class="lmx_feedbackContent"
+              placeholder="如果您有反馈意见，请告知我们哦！"
+            ></textarea>
+            <a class="feedbackBtn" @click="submitFeedBack">确认</a>
           </div>
         </article>
 
@@ -131,7 +133,10 @@ export default {
   data() {
     return {
       cars: [],
-      organizationCode: ""
+      organizationCode: "",
+      feedBackMsg: "",
+      isShowCars: true,
+      isShowFeedback: true
     };
   },
   computed: {
@@ -145,7 +150,14 @@ export default {
     }
   },
   methods: {
-    async route() {},
+    route(index) {
+      this.$store.state.router.forEach(o => {
+        o.isActive = false;
+      });
+      this.$store.state.router[index].isActive = true;
+      this.$store.commit("updateRouter", this.$store.state.router);
+      this.$router.push(this.$store.state.router[index].path);
+    },
     addCar() {
       this.cars.push({
         userId: this.$store.state.user.id,
@@ -191,7 +203,7 @@ export default {
     },
     async saveOrganizationCode(val, initialValue) {
       try {
-        await User.updateOrganizationCode(this.$store.state.user.id,val);
+        await User.updateOrganizationCode(this.$store.state.user.id, val);
         this.$q.notify({
           type: "positive",
           message: "认证成功！",
@@ -199,7 +211,26 @@ export default {
           icon: "tag_faces",
           timeout: 1000
         });
-        this.organizationCode = '';
+        this.organizationCode = "";
+      } catch (error) {
+        this.$q.notify({
+          type: "negative",
+          message: error.message,
+          position: "top",
+          timeout: 1000
+        });
+      }
+    },
+    async submitFeedBack() {
+      try {
+        await User.feedBack(this.$store.state.user.id, this.feedBackMsg);
+        this.$q.notify({
+          type: "positive",
+          message: "反馈成功！",
+          position: "top",
+          icon: "tag_faces",
+          timeout: 1000
+        });
       } catch (error) {
         this.$q.notify({
           type: "negative",

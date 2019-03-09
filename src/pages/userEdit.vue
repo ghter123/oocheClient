@@ -27,6 +27,13 @@
           <i></i>
         </td>
       </tr>
+      <tr class="bottomMax">
+        <td>公司</td>
+        <td>
+          <input style="width:100%" class="readonly" type="text" v-model="userInfo.parentDepartName">
+          <i></i>
+        </td>
+      </tr>
       <tr>
         <td>部门</td>
         <td>
@@ -38,18 +45,12 @@
             >{{ depart.departName }}</option>
           </select>
         </td>
-      </tr>
-      <tr class="bottomMax">
-        <td>公司</td>
-        <td>
-          <input style="width:100%" type="text" readonly v-model="userInfo.parentDepartName">
-          <i></i>
-        </td>
+        <i></i>
       </tr>
       <tr class="bottomMax">
         <td>身份证</td>
         <td>
-          <input type="text" v-model="userInfo.citizenNo">
+          <input style="width:100%" type="text" v-model="userInfo.citizenNo">
           <i></i>
         </td>
       </tr>
@@ -64,14 +65,14 @@
       <tr class="bottomMax">
         <td>Email</td>
         <td>
-          <input type="text" v-model="userInfo.email">
+          <input style="width:100%" type="text" v-model="userInfo.email">
           <i></i>
         </td>
       </tr>
       <tr>
         <td>员工编号</td>
         <td>
-          <input type="text" v-model="userInfo.empNo">
+          <input style="width:100%" type="text" v-model="userInfo.empNo">
           <i></i>
         </td>
       </tr>
@@ -117,6 +118,7 @@
 <script>
 import User from "../model/User";
 import Organization from "../model/Organization";
+import Utils from "../model/Utils";
 
 const TIME_COUNT = 120;
 export default {
@@ -174,7 +176,10 @@ export default {
     },
     async getRegisterCode() {
       try {
-        await User.getRegisterCode(this.userInfo.mobilePhone);
+        if (!Utils.isMobilePhoneNum(this.newMobilePhone)) {
+          throw new Error("请输入一个有效的手机号码！");
+        }
+        await User.getRegisterCode(this.newMobilePhone);
         this.$q.notify({
           type: "positive",
           message: "验证码发送成功",
@@ -240,8 +245,7 @@ export default {
   async mounted() {
     try {
       this.userInfo = await User.getUserInfo(this.$store.state.user.id);
-      this.departOptions =
-        (await Organization.getDepartInfos(this.$store.state.user.id)) || [];
+      this.departOptions = (await Organization.getDepartInfos(this.userInfo.parentDepartId)) || [];
     } catch (error) {
       this.$q.notify({
         type: "negative",

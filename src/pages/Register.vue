@@ -37,6 +37,7 @@
 import Config from "../config";
 import WebToken from "../model/WebToken";
 import User from "../model/User";
+import Utils from "../model/Utils";
 
 const TIME_COUNT = 120;
 export default {
@@ -85,6 +86,9 @@ export default {
     async getRegisterCode() {
       this.$q.loading.show();
       try {
+        if (!Utils.isMobilePhoneNum(this.newMobilePhone)) {
+          throw new Error("请输入一个有效的手机号码！");
+        }
         await User.getRegisterCode(this.phoneNum);
         this.$q.notify({
           type: "positive",
