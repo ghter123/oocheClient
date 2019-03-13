@@ -13,7 +13,7 @@
               <time>
                 服务时间：{{runningOrder.orderTime}}
                 <!-- 服务时间：{{runningOrder.orderTime | yearFormat}}
-                <i>{{runningOrder.orderTime | timeFormat}}</i> -->
+                <i>{{runningOrder.orderTime | timeFormat}}</i>-->
               </time>
               <cite>
                 车位号：{{runningOrder.parkNo}}
@@ -51,7 +51,7 @@
               服务时间：{{item.orderTime}}
               <!-- 服务时间：{{runningOrder.orderTime | yearFormat}}
               <i>{{runningOrder.orderTime | timeFormat}}</i>-->
-              <a>评价</a>
+              <router-link :to="{ name: 'comment', params:item}">评价</router-link>
             </time>
             <cite>
               车位号：{{item.parkNo}}

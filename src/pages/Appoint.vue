@@ -248,30 +248,7 @@ export default {
     },
     async takePhoto() {
       let vm = this;
-      let signatureInfo;
-      try {
-        signatureInfo = await SignatureInfo();
-      } catch (error) {
-        this.$q.notify({
-          type: "negative",
-          message: error.message,
-          position: "top",
-          timeout: 1000
-        });
-      }
 
-      this.wx = await InitJssdk({
-        debug: false,
-        appId: signatureInfo.appId_,
-        timestamp: signatureInfo.timestamp_,
-        nonceStr: signatureInfo.noncestr_,
-        signature: signatureInfo.signature_,
-        jsApiList: [
-          "chooseImage", //拍照或从手机相册中选图接口
-          "previewImage", //预览图片接口
-          "uploadImage" //上传图片接口
-        ]
-      });
       this.wx.checkJsApi({
         jsApiList: ["chooseImage"], // 需要检测的JS接口列表，所有JS接口列表见附录2,
         success: function(res) {
@@ -342,6 +319,30 @@ export default {
     this.order.plateNumber = this.$store.state.user.vehicles.carNum;
     this.order.parkNo = this.defaultCarPack;
     await this.getProductByuser(this.order.userId);
+    let signatureInfo;
+    try {
+      signatureInfo = await SignatureInfo();
+    } catch (error) {
+      this.$q.notify({
+        type: "negative",
+        message: error.message,
+        position: "top",
+        timeout: 1000
+      });
+    }
+
+    this.wx = await InitJssdk({
+      debug: false,
+      appId: signatureInfo.appId_,
+      timestamp: signatureInfo.timestamp_,
+      nonceStr: signatureInfo.noncestr_,
+      signature: signatureInfo.signature_,
+      jsApiList: [
+        "chooseImage", //拍照或从手机相册中选图接口
+        "previewImage", //预览图片接口
+        "uploadImage" //上传图片接口
+      ]
+    });
   }
 };
 </script>

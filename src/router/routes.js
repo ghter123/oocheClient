@@ -15,7 +15,8 @@ export default [
       { path: 'My', component: () => import('pages/My') },
       { path: 'supplierHome', component: () => import('pages/supplierHome') },
       { path: 'supplierOrderList', component: () => import('pages/supplierOrderList') },
-      { path: 'userEdit', component: () => import('pages/UserEdit') }
+      { path: 'userEdit', component: () => import('pages/UserEdit') },
+      { path: 'comment', name: 'comment', component: () => import('pages/Comment'), props: true },
     ]
   },
 

@@ -35,11 +35,16 @@ export default class User {
             userId
         }); 
     }
+
     static async feedBack(userId,msg){
         return await axios.put(`/jeecg/rest/user/isUserFeedBack`, {
             userId,
             msg
         });
+    }
+
+    static async addOrderComment(comment){
+        return await axios.post(`/jeecg/rest/orderComment/addComment`, comment);
     }
 
     static async updateMobilePhone(userId,mobilePhone,checkCode){

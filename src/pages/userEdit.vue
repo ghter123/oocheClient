@@ -103,10 +103,10 @@
         <table style="margin:10px auto 2px;width:80%;text-align: center;">
           <tr>
             <td>
-              <q-btn class="button" @click="cancelNewMobilePhone" label="取消"/>
+              <q-btn class="fixButton" @click="cancelNewMobilePhone" label="取消"/>
             </td>
             <td>
-              <q-btn class="button" @click="applyNewMobilePhone" label="确认"/>
+              <q-btn class="fixButton" @click="applyNewMobilePhone" label="确认"/>
             </td>
           </tr>
         </table>
@@ -258,7 +258,7 @@ export default {
 };
 </script>
 <style>
-.button {
+.fixButton {
   font-size: 16px;
   width: 100px;
   border: none;
