@@ -58,7 +58,7 @@ export default {
   },
   methods: {},
   async mounted() {
-    const orderId = this.$route.params.id;
+    const orderId = this.$route.query.id;
     if (_.isNull(orderId)) return;
     this.orderBrief = await order.getById(orderId);
     this.orderHandles = await order.getHandlesByOrderId(orderId);

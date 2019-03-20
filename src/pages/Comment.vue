@@ -40,7 +40,7 @@ import { date } from "quasar";
 import File from "../model/File";
 import InitJssdk from "../model/InitJssdk";
 import SignatureInfo from "../model/SignatureInfo";
-import User from "../model/User";
+import Comment from "../model/Comment";
 
 export default {
   data() {
@@ -69,13 +69,13 @@ export default {
           const photoRes = await File.uploadByWx(this.img);
           this.img = photoRes.id;
         }
-        await User.addOrderComment({
+        await Comment.addOrderComment({
           parentCommentId: "",
-          orderId: this.order.id,
+          orderId: this.order.orderId,
+          commentStarLevel: "0",
           commentUserId: this.$store.state.user.id,
           comments: this.commentMsg,
-          commentPhotos: this.img ? [this.img] : [],
-          commentStarLevel: "",
+          commentPhotos: this.img || "",
           commentTime: new Date()
         });
         this.$router.go(-1);

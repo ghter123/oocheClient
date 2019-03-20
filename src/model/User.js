@@ -25,30 +25,26 @@ export default class User {
         return userInfo;
     }
 
-    static async updateUserInfo(user) {
-        return await axios.put(Config.updateUserInfo, user);
+    static updateUserInfo(user) {
+        return axios.put(Config.updateUserInfo, user);
     }
 
-    static async updateOrganizationCode(userId,orgCode){
-        return await axios.put(`/jeecg/rest/user/isAgencyCertification`,{
+    static updateOrganizationCode(userId,orgCode){
+        return axios.put(`/jeecg/rest/user/isAgencyCertification`,{
             orgCode,
             userId
         }); 
     }
 
-    static async feedBack(userId,msg){
-        return await axios.put(`/jeecg/rest/user/isUserFeedBack`, {
+    static feedBack(userId,msg){
+        return axios.put(`/jeecg/rest/user/isUserFeedBack`, {
             userId,
             msg
         });
     }
 
-    static async addOrderComment(comment){
-        return await axios.post(`/jeecg/rest/orderComment/addComment`, comment);
-    }
-
-    static async updateMobilePhone(userId,mobilePhone,checkCode){
-        return await axios.put(`/jeecg/rest/rebindMobile/${userId}/${mobilePhone}/${checkCode}`); 
+    static updateMobilePhone(userId,mobilePhone,checkCode){
+        return axios.put(`/jeecg/rest/rebindMobile/${userId}/${mobilePhone}/${checkCode}`); 
     }
 
     static standard(user) {

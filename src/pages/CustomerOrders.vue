@@ -51,11 +51,15 @@
               服务时间：{{item.orderTime}}
               <!-- 服务时间：{{runningOrder.orderTime | yearFormat}}
               <i>{{runningOrder.orderTime | timeFormat}}</i>-->
-              <router-link :to="{ name: 'comment', params:item}">评价</router-link>
+              <router-link
+                v-if="item.commentStatusText"
+                :to="{ name: 'comment', params:item}"
+              >{{item.commentStatusText}}</router-link>
             </time>
             <cite>
               车位号：{{item.parkNo}}
               <span>{{item.statusName}}</span>
+              <router-link :to="{ path: '/default/orderDetail', query:{id:item.orderId}}">订单详情</router-link>
             </cite>
           </div>
         </div>
@@ -111,9 +115,20 @@ export default {
       return items;
     },
     finishedOrders() {
-      return _.filter(
-        this.orders,
-        o => o.statusName === "已取消" || o.statusName === "已完成"
+      return _.map(
+        _.filter(
+          this.orders,
+          o => o.statusName === "已取消" || o.statusName === "已完成"
+        ),
+        o => {
+          o.commentStatusText =
+            o.commentStatus === "0"
+              ? "评价"
+              : o.commentStatus !== "2"
+              ? "追评"
+              : "";
+          return o;
+        }
       );
     }
   },
