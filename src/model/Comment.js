@@ -1,7 +1,9 @@
+import axios from 'axios';
+
 export default class Comment {
     constructor(comment) {
         this.commentPhotos = comment.commentPhotos || [];
-        this.commentStarLevel = comment.commentStarLevel || '';
+        this.commentStarLevel = comment.commentStarLevel || '0';
         this.commentTime = comment.commentTime || new Date();
         this.commentUserId = comment.commentUserId || '';
         this.comments = comment.comments || '';

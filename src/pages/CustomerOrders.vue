@@ -18,6 +18,7 @@
               <cite>
                 车位号：{{runningOrder.parkNo}}
                 <span>{{runningOrder.statusName}}</span>
+                <router-link :to="{ name: 'orderDetail', params:runningOrder}">订单详情</router-link>
               </cite>
             </div>
             <div class="course">
@@ -53,13 +54,13 @@
               <i>{{runningOrder.orderTime | timeFormat}}</i>-->
               <router-link
                 v-if="item.commentStatusText"
-                :to="{ name: 'comment', params:item}"
+                :to="{ name: item.routeName, params:item}"
               >{{item.commentStatusText}}</router-link>
             </time>
             <cite>
               车位号：{{item.parkNo}}
               <span>{{item.statusName}}</span>
-              <router-link :to="{ path: '/default/orderDetail', query:{id:item.orderId}}">订单详情</router-link>
+              <router-link :to="{ name: 'orderDetail', params:item}">订单详情</router-link>
             </cite>
           </div>
         </div>
@@ -126,6 +127,12 @@ export default {
               ? "评价"
               : o.commentStatus !== "2"
               ? "追评"
+              : "";
+          o.routeName =
+            o.commentStatus === "0"
+              ? "comment"
+              : o.commentStatus !== "2"
+              ? "appendComment"
               : "";
           return o;
         }

@@ -1,3 +1,4 @@
+import axios from 'axios';
 class OrderHandle {
 	constructor(orderHandle) {
 		this.orderStatus = orderDetail.orderStatus || '';//状态编码

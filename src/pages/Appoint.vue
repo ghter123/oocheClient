@@ -90,53 +90,6 @@
         </div>
       </div>
     </div>
-
-    <!-- <q-modal v-model="showConfirm">
-      <div class="orderForm">
-        <header>
-          <h1>客户订单详情</h1>
-          <div class="bespeakInfo">
-            <div class="portrait" :style="{backgroundImage: 'url(' + wxHeadImg + ')' }"></div>
-            <strong>{{userBrief}}</strong>
-            <i>{{order.plateNumber}}</i>
-            <span>白·宝马X6</span>
-          </div>
-          <p>
-            <cite></cite>
-            服务时间：{{order.orderTime}}
-          </p>
-          <p>
-            <cite></cite>
-            车位信息: {{order.parkNo}}
-          </p>
-          <textarea placeholder="还有话要说" v-model="order.orderDesc"></textarea>
-        </header>
-
-        <article class="content">
-          <h1>哦哦洗车</h1>
-          <img class="card" src="../statics/card.png" alt>
-        </article>
-
-        <footer>
-          <div class="btnWrap reviseOrderBtnWrap">
-            <div>
-              <a class="btn reviseOrderBtn" @click="()=>showConfirm=false" data-text="修改预约">修改预约</a>
-            </div>
-          </div>
-          <div class="btnWrap ascertainBtnWrap">
-            <div>
-              <input
-                class="btn ascertainBtn"
-                @click="submit"
-                type="submit"
-                data-text="确认预约"
-                value="确认预约"
-              >
-            </div>
-          </div>
-        </footer>
-      </div>
-    </q-modal>-->
   </q-page>
 </template>
 

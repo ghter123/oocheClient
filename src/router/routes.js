@@ -8,7 +8,7 @@ export default [
       { path: 'CustomerOrders', component: () => import('pages/CustomerOrders') },
       { path: 'appoint', component: () => import('pages/appoint') },
       { path: 'orders', component: () => import('pages/orders') },
-      { path: 'orderDetail', component: () => import('pages/OrderDetail') },
+      { path: 'orderDetail',name:'orderDetail', component: () => import('pages/OrderDetail') },
       { path: 'Products', component: () => import('pages/Products') },
       { path: 'OrderQueue', component: () => import('pages/OrderQueue') },
       { path: 'AppointSucc', component: () => import('pages/AppointSucc') },
@@ -17,6 +17,7 @@ export default [
       { path: 'supplierOrderList', component: () => import('pages/supplierOrderList') },
       { path: 'userEdit', component: () => import('pages/UserEdit') },
       { path: 'comment', name: 'comment', component: () => import('pages/Comment')},
+      { path: 'appendComment', name: 'appendComment', component: () => import('pages/AppendComment')},
     ]
   },
 

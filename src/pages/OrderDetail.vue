@@ -1,67 +1,68 @@
 <template>
-  <q-page>
-      <q-list highlight>
-        <q-list-header>订单详情</q-list-header>
+  <div>
+    <div class="boxHtml">
+      <h1>订单详情</h1>
+      <div class="content">
+        <div class="box">
+          <div class="boxContent">
+            <h2>
+              <strong>{{order.plateNumber}}</strong>
+              <i>订单号：{{order.orderCode}}</i>
+            </h2>
+            <time>
+              服务时间：{{order.orderTime}}
+              <!-- <i>14:7:23</i> -->
+            </time>
+            <cite>车位号：{{order.parkNo}}</cite>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        <q-item>
-          <q-item-side>
-            <q-item-tile avatar>
-              <img src="orderBrief.park_photo">
-            </q-item-tile>
-          </q-item-side>
-          <q-item-main label="预约详情">
-            <div class="row">
-              <div>
-                {{orderBrief.order_time}}
-              </div>
-            </div>
-            <div class="row">
-              <div>
-                停车位:{{orderBrief.park_no}}
-              </div>
-            </div>
-            <div class="row">
-              <div>
-                服务产品:{{orderBrief.product_name}}
-              </div>
-            </div>
-            <div class="row">
-              <div>
-                备注:{{orderBrief.order_desc}}
-              </div>
-            </div>
-          </q-item-main>
-        </q-item>
-        <q-item-separator />
-
-        <q-item v-for="handle in orderHandles" :key="handle.id">
-          <q-item-side>
-          </q-item-side>
-          <q-item-main :label="handle.deal_time">
-            {{handle.deal_desc}}
-          </q-item-main>
-        </q-item>
-      </q-list>
-  </q-page>
+    <table>
+      <tbody>
+        <tr v-for="handle in orderDetail.handles" :key="handle.statusName">
+          <td>{{handle.dealAct}}</td>
+          <td>
+            {{handle.dealTime}}
+            <br>
+            {{handle.dealDesc}}
+          </td>
+          <td>
+            <div
+              class="img"
+              v-for="photo in handle.photosAddress"
+              :key="photo"
+              :style="{backgroundImage:'url(' + photo + ')'}"
+            ></div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
-
 <script>
-import order from "../model/Order";
-import _ from "lodash";
+import OrderDetail from "../model/OrderDetail";
 
 export default {
   data() {
     return {
-      orderBrief: {},
-      orderHandles: []
+      order: {},
+      orderDetail: {}
     };
   },
-  methods: {},
   async mounted() {
-    const orderId = this.$route.query.id;
-    if (_.isNull(orderId)) return;
-    this.orderBrief = await order.getById(orderId);
-    this.orderHandles = await order.getHandlesByOrderId(orderId);
+    this.order = this.$route.params;
+    try {
+      this.orderDetail = await OrderDetail.getByOrderId(this.order.orderId);
+    } catch (error) {
+      this.$q.notify({
+        type: "negative",
+        message: error.message,
+        position: "top",
+        timeout: 1000
+      });
+    }
   }
 };
 </script>

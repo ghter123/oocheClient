@@ -69,15 +69,13 @@ export default {
           const photoRes = await File.uploadByWx(this.img);
           this.img = photoRes.id;
         }
-        await Comment.addOrderComment({
-          parentCommentId: "",
+        const comment = new Comment({
           orderId: this.order.orderId,
-          commentStarLevel: "0",
           commentUserId: this.$store.state.user.id,
-          comments: this.commentMsg,
-          commentPhotos: this.img || "",
-          commentTime: new Date()
+          comments: this.commentMsg
         });
+        comment.commentPhotos.push(this.img);
+        await Comment.addOrderComment(comment);
         this.$router.go(-1);
       } catch (error) {
         this.$q.notify({
