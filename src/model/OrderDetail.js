@@ -15,13 +15,13 @@ class OrderHandle {
 
 export default class OrderDetail {
 	constructor(orderDetail) {
-		this.orderId = orderDetail.orderId || '';//订单ID
+		this.orderId = orderDetail.id || '';//订单ID
 		this.plateNumber = orderDetail.plateNumber || '';//车牌号
 		this.parkNo = orderDetail.parkNo || '';//停车位
 		this.parkPhoto = orderDetail.parkPhoto || '';  //停车照片
 		this.handles = orderDetail.handles || []; //OrderHandle[]  处理动作
 	}
 	static getByOrderId(orderId) {
-		return axios.get(`/jeecg/rest/order/${orderId}/detail`);
+		return axios.get(`/jeecg/rest/orderController/${orderId}/detail`);
 	}
 }
