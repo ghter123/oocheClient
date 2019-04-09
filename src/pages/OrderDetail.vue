@@ -19,26 +19,28 @@
       </div>
     </div>
 
-    <table>
-      <tbody>
-        <tr v-for="handle in orderDetail.handles" :key="handle.statusName">
-          <td>{{handle.dealAct}}</td>
-          <td>
-            {{handle.dealTime}}
-            <br>
-            {{handle.dealDesc}}
-          </td>
-          <td>
-            <div
-              class="img"
-              v-for="photo in handle.photosAddress"
-              :key="photo"
-              :style="{backgroundImage:'url(' + photo + ')'}"
-            ></div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="orderDetail">
+      <table>
+        <tbody>
+          <tr v-for="handle in orderDetail.handles" :key="handle.statusName">
+            <td>{{handle.dealAct}}</td>
+            <td>
+              {{handle.dealTime}}
+              <br>
+              {{handle.dealDesc}} 联系电话:{{handle.userTel}}
+            </td>
+            <td>
+              <div
+                class="img"
+                v-for="photo in handle.photosAddress"
+                :key="photo"
+                :style="{backgroundImage:'url(' + photo + ')'}"
+              ></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 <script>
