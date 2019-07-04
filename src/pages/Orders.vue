@@ -141,7 +141,7 @@ export default {
       this.$q.loading.show();
       try {
         await this.$axios.post(
-          `${scanResult}/${orderId}/${this.$store.state.user.id}`
+          `${scanResult}/${this.$store.state.user.id}?orderId=${orderId}`
         );
       } catch (error) {
         this.$q.notify({

@@ -7,14 +7,12 @@
           <div class="portrait" :style="{backgroundImage: 'url(' + headimgurl + ')'}">
             <!-- <input type="file" name="picture[]" class="fileImg" accept="image/*" autocomplete="off"> -->
           </div>
-          <i></i>
         </td>
       </tr>
       <tr>
         <td>名字</td>
         <td>
           <input name="username" type="text" v-model="userInfo.realName">
-          <i></i>
         </td>
       </tr>
       <tr class="bottomMax">
@@ -51,7 +49,6 @@
         <td>身份证</td>
         <td>
           <input style="width:100%" type="text" v-model="userInfo.citizenNo">
-          <i></i>
         </td>
       </tr>
       <tr>
@@ -66,14 +63,12 @@
         <td>Email</td>
         <td>
           <input style="width:100%" type="text" v-model="userInfo.email">
-          <i></i>
         </td>
       </tr>
       <tr>
         <td>员工编号</td>
         <td>
           <input style="width:100%" type="text" v-model="userInfo.empNo">
-          <i></i>
         </td>
       </tr>
     </table>
@@ -176,9 +171,7 @@ export default {
     },
     async getRegisterCode() {
       try {
-        if (!Utils.isMobilePhoneNum(this.newMobilePhone)) {
-          throw new Error("请输入一个有效的手机号码！");
-        }
+      
         await User.getRegisterCode(this.newMobilePhone);
         this.$q.notify({
           type: "positive",

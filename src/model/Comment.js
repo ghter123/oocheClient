@@ -17,6 +17,6 @@ export default class Comment {
     }
 
     static getFirstByOrderId(orderId){
-        return axios.get(`/jeecg/rest/orderComments/${orderId}/first`);
+        return axios.get(`/jeecg/rest/orderComment/${orderId}/first`);
     }
 }

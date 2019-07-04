@@ -24,10 +24,12 @@
         <tbody>
           <tr v-for="handle in orderDetail.handles" :key="handle.statusName">
             <td>{{handle.dealAct}}</td>
-            <td>
-              {{handle.dealTime}}
+            <td style="text-align:left">
+              留言：{{handle.dealDesc}}
               <br>
-              {{handle.dealDesc}} 联系电话:{{handle.userTel}}
+              联系电话：{{handle.userTel}}
+              <br>
+              {{handle.dealTime}}
             </td>
             <td>
               <div

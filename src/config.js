@@ -32,5 +32,6 @@ export default {
     getCars:"/jeecg/rest/userVehicle/getCarList/",
     upsertCar:'/jeecg/rest/userVehicle/addOrModify',
     getUserInfo:'/jeecg/rest/user/get/',
-    updateUserInfo:'/jeecg/rest/user/updateOrSave'
+    updateUserInfo:'/jeecg/rest/user/updateOrSave',
+    rebindMobileUri: '/jeecg/rest/user/rebindMobile/'
 }

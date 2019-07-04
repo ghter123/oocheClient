@@ -30,26 +30,29 @@ export default class User {
     }
 
     static updateOrganizationCode(userId,orgCode){
-        return axios.put(`/jeecg/rest/user/isAgencyCertification`,{
+        return axios.put(`/jeecg/rest/user/approveOrg`,{
             orgCode,
             userId
         }); 
     }
 
     static feedBack(userId,msg){
-        return axios.put(`/jeecg/rest/user/isUserFeedBack`, {
+        return axios.put(`/jeecg/rest/user/feedBack`, {
             userId,
             msg
         });
     }
 
-    static updateMobilePhone(userId,mobilePhone,checkCode){
-        return axios.put(`/jeecg/rest/rebindMobile/${userId}/${mobilePhone}/${checkCode}`); 
+    static  async updateMobilePhone(userId,mobilePhone,checkCode){
+        return await axios.post(Config.rebindMobileUri + userId + "/" + mobilePhone+ "/" +checkCode);
     }
+
 
     static standard(user) {
         user.vehicles = _.isEmpty(user.vehicles) ? null : JSON.parse(user.vehicles);
         return user;
     }
 
+
+    
 }

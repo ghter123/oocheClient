@@ -42,7 +42,7 @@
 
       <h1>已完成订单</h1>
       <div class="content">
-        <div class="box" v-for="item in finishedOrders" :key="item.orderId">
+        <div class="box" v-for="item in finishedOrders" :key="item.orderId" v-if="finishedOrders != null && finishedOrders.length > 0">
           <div class="boxContent">
             <h2>
               <strong>{{item.plateNumber}}</strong>
@@ -60,7 +60,7 @@
             <cite>
               车位号：{{item.parkNo}}
               <span>{{item.statusName}}</span>
-              <router-link :to="{ name: 'orderDetail', params:item}">订单详情</router-link>
+              <router-link :to="{ name: 'orderDetail', params:item}">查看详情</router-link>
             </cite>
           </div>
         </div>
@@ -168,7 +168,12 @@ export default {
     },
     async reviewOrders() {
       try {
-        this.orders = await Order.getOrdersByUserId(this.$store.state.user.id);
+        var orderStatus = ["-1"];
+        var ordersData = await Order.getOrdersByUserId(this.$store.state.user.id,orderStatus,"1");
+        if(ordersData != null && ordersData.orderList != null){
+          this.orders = ordersData.orderList;
+        }
+
       } catch (error) {
         this.$q.notify({
           type: "negative",

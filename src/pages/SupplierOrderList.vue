@@ -47,12 +47,14 @@
               </time>
               <cite>
                 车位号：{{myOrder.parkNo}}
-                <a
+                <!-- <a
                   v-if="myOrder.statusName!=='已完成'"
                   class="on-left"
                   style="position: relative;right:-80px;top:2px;color: #6ea3fb; border:1px solid #6ea3fb; border-radius: 100px; padding: 5px 12px; font-size: 12px; line-height: 14px;"
                   @click="finishService(myOrder.orderId)"
-                >结束服务</a>
+                >结束服务</a> -->
+                
+                <router-link :to="{ name: 'orderDetail', params:myOrder }">查看详情</router-link>
                 <a :class="myOrder.class">{{myOrder.statusName}}</a>
               </cite>
             </div>
@@ -84,6 +86,10 @@ export default {
     };
   },
   methods: {
+    router() {},
+    showDetail(id) {
+      this.$router.push(`orderDetail/${id}`);
+    },
     async reloadAwaitOrders() {
       this.awaitOrders = await Order.getAwaitOrders();
     },
@@ -175,7 +181,7 @@ export default {
       this.$q.loading.show();
       try {
         await this.$axios.post(
-          `${scanResult}?userId=${this.$store.state.user.id}&orderId=${orderId}`
+          `${scanResult}/${this.$store.state.user.id}?orderId=${orderId}`
         );
       } catch (error) {
         this.$q.notify({

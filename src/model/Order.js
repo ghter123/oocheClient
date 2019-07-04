@@ -20,10 +20,10 @@ export default class Order {
 
     }
 
-    static async getOrdersByUserId(userId) {
-        return await axios.get(`${Config.getOrdersByUserIdUri}${userId}`);
+    static async getOrdersByUserId(userId,orderStatusStr,currentPage) {
+        return await axios.get(Config.getOrdersByUserIdUri+userId+"/"+orderStatusStr+"/"+currentPage);
     }
-    
+
     static async getAwaitOrders() {
         return await axios.get(Config.getAwaitOrdersUri);
     }
