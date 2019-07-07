@@ -32,7 +32,7 @@ module.exports = function (ctx) {
     },
     devServer: {
       // https: true,
-      port: 8080,
+      port: 80,
       proxy: {
         // 将所有以/api开头的请求代理到jsonplaceholder
         '/jeecg': {

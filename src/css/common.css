@@ -1,0 +1,213 @@
+/*
+  宽度按比例
+*/
+.width0{ width: 0; }
+.width100{ width: 100%; }
+
+/*
+  宽度按像素
+*/
+.width_10{ width: 10px; }
+.width_12{ width: 12px; }
+.width_15{ width: 15px; }
+.width_50{ width: 50px; }
+.width_80{ width: 80px; }
+
+/*
+  高度按像素
+*/
+.height_5{ height: 5px; }
+.height_12{ height: 12px; }
+.height_15{ height: 15px; }
+.height_25{ height: 25px; }
+.height_50{ height: 50px; }
+.height_65{ height: 65px; }
+.height_70{ height: 70px; }
+.height_75{ height: 75px; }
+
+/*
+  背景色
+*/
+.bgcolor_white{
+  background-color: #FFFFFF;
+}
+.bgcolor_blue_1{
+  background-color: #5B8BE0;
+}
+.bgcolor_blue_2{
+  background-color: #5A75F1;
+}
+.bgcolor_gray_1{
+  background-color: #F2F2F2;
+}
+
+/*
+  margin
+*/
+
+
+
+/*
+  margin_l
+*/
+.margin_l5{
+  margin-left: 5px;
+}
+.margin_l12{
+  margin-left: 12px;
+}
+.margin_l30{
+  margin-left: 30px;
+}
+.margin_l33{
+  margin-left: 33px;
+}
+.margin_l44{
+  margin-left: 44px;
+}
+
+/*
+  margin_l
+*/
+.margin_r12{
+  margin-right: 12px;
+}
+.margin_r25{
+  margin-right: 25px;
+}
+
+
+/*
+  margin_t
+*/
+.margin_t5{
+  margin-top: 5px;
+}
+.margin_t10{
+  margin-top: 10px;
+}
+.margin_t12{
+  margin-top: 12px;
+}
+.margin_t15{
+  margin-top: 15px;
+}
+.margin_t20{
+  margin-top: 20px;
+}
+.margin_t25{
+  margin-top: 25px;
+}
+.margin_t30{
+  margin-top: 30px;
+}
+
+/*
+  margin_b
+*/
+.margin_b10{
+  margin-bottom: 10px;
+}
+.margin_b15{
+  margin-bottom: 15px;
+}
+.margin_b50{
+  margin-bottom: 50px;
+}
+.margin_b100{
+  margin-bottom: 100px;
+}
+
+/*
+  padding
+*/
+
+.padding0{
+  padding: 0;
+}
+
+/*
+  padding_l
+*/
+.padding_l44{
+  padding-left: 44px;
+}
+
+/*
+  padding_r
+*/
+.padding_r12{
+  padding-right: 12px;
+}
+.padding_r50{
+  padding-right: 50px;
+}
+.padding_r52{
+  padding-right: 52px;
+}
+.padding_r55{
+  padding-right: 55px;
+}
+.padding_r65{
+  padding-right: 65px;
+}
+/*
+  padding_lr
+*/
+.padding_lr10{
+  padding:0px 10px;
+}
+
+/*
+  padding_t
+*/
+.padding_t25{
+  padding-top: 25px;
+}
+.padding_t30{
+  padding-top: 30px;
+}
+
+/*
+  font_size
+*/
+.font_size9{
+  font-size: 9px;
+}
+.font_size10{
+  font-size: 10px;
+}
+.font_size12{
+  font-size: 12px;
+}
+.font_size14{
+  font-size: 14px;
+}
+.font_size15{
+  font-size: 15px;
+}
+
+/*
+  color
+*/
+.color_white_1{
+  color: #FEFEFE;
+}
+.color_black_1{
+  color: #4C4C4C;
+}
+.color_red_1{
+  color: #FD4650;
+}
+
+/*
+  radius
+*/
+.radius6{
+  border-radius: 6px;
+}
+
+/*border*/
+.border_gray_1{
+  border: 1px solid #F2F2F2;
+}
