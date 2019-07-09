@@ -42,10 +42,10 @@
     <!--分界线-->
     <div class="width100 bgcolor_gray_1 height_5"></div>
     <!--订单状态列表明细-->
-    <div class="row" v-if="orderDetail != null">
+    <div class="row margin_b50" v-if="orderDetail != null">
       <div class="col-xs-12">
         <template v-for="detail in orderDetail.handles">
-          <div class="row margin_t15 margin_b50">
+          <div class="row margin_t15">
             <div class="col-xs-12">
               <div class="row">
                 <div class="col-xs-6">
