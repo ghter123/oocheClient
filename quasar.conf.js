@@ -1,15 +1,10 @@
 // Configuration for your app
 
-module.exports = function (ctx) {
+module.exports = function(ctx) {
   return {
     // app plugins (/src/plugins)
-    plugins: [
-      'i18n',
-      'axios'
-    ],
-    css: [
-      'app.styl'
-    ],
+    plugins: ['i18n', 'axios'],
+    css: ['app.styl'],
     extras: [
       ctx.theme.mat ? 'roboto-font' : null,
       'material-icons' // optional, you are not bound to it
@@ -27,8 +22,7 @@ module.exports = function (ctx) {
       // gzip: true,
       // analyze: true,
       // extractCSS: false,
-      extendWebpack(cfg) {
-      }
+      extendWebpack(cfg) {}
     },
     devServer: {
       // https: true,
@@ -37,6 +31,9 @@ module.exports = function (ctx) {
         // 将所有以/api开头的请求代理到jsonplaceholder
         '/jeecg': {
           target: 'http://122.114.236.227:80/'
+        },
+        '/oochePictures': {
+          target: 'http://122.114.236.227/oochePictures/'
         }
       },
       open: true // opens browser window automatically
@@ -81,23 +78,14 @@ module.exports = function (ctx) {
         'QSelect',
         'QPopupEdit'
       ],
-      directives: [
-        'Ripple',
-        'CloseOverlay'
-      ],
+      directives: ['Ripple', 'CloseOverlay'],
       // Quasar plugins
-      plugins: [
-        'Notify',
-        'Cookies',
-        'Dialog',
-        'Loading'
-      ],
-      iconSet:'material-icons'
+      plugins: ['Notify', 'Cookies', 'Dialog', 'Loading'],
+      iconSet: 'material-icons'
       // i18n: 'de' // Quasar language
     },
     // animations: 'all' --- includes all animations
-    animations: [
-    ],
+    animations: [],
     pwa: {
       // workboxPluginMode: 'InjectManifest',
       // workboxOptions: {},
@@ -111,29 +99,29 @@ module.exports = function (ctx) {
         theme_color: '#027be3',
         icons: [
           {
-            'src': 'statics/icons/icon-128x128.png',
-            'sizes': '128x128',
-            'type': 'image/png'
+            src: 'statics/icons/icon-128x128.png',
+            sizes: '128x128',
+            type: 'image/png'
           },
           {
-            'src': 'statics/icons/icon-192x192.png',
-            'sizes': '192x192',
-            'type': 'image/png'
+            src: 'statics/icons/icon-192x192.png',
+            sizes: '192x192',
+            type: 'image/png'
           },
           {
-            'src': 'statics/icons/icon-256x256.png',
-            'sizes': '256x256',
-            'type': 'image/png'
+            src: 'statics/icons/icon-256x256.png',
+            sizes: '256x256',
+            type: 'image/png'
           },
           {
-            'src': 'statics/icons/icon-384x384.png',
-            'sizes': '384x384',
-            'type': 'image/png'
+            src: 'statics/icons/icon-384x384.png',
+            sizes: '384x384',
+            type: 'image/png'
           },
           {
-            'src': 'statics/icons/icon-512x512.png',
-            'sizes': '512x512',
-            'type': 'image/png'
+            src: 'statics/icons/icon-512x512.png',
+            sizes: '512x512',
+            type: 'image/png'
           }
         ]
       }
@@ -148,13 +136,11 @@ module.exports = function (ctx) {
       },
       packager: {
         // https://github.com/electron-userland/electron-packager/blob/master/docs/api.md#options
-
         // OS X / Mac App Store
         // appBundleId: '',
         // appCategoryType: '',
         // osxSign: '',
         // protocol: 'myapp://path',
-
         // Window only
         // win32metadata: { ... }
       },
