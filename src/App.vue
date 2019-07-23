@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import './bootstrap/css/bootstrap.min.css';
 import './css/common.css';
 import './css/app.css';
 

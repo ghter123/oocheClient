@@ -33,7 +33,7 @@ module.exports = function(ctx) {
           target: 'http://122.114.236.227:80/'
         },
         '/oochePictures': {
-          target: 'http://122.114.236.227/oochePictures/'
+          target: 'http://122.114.236.227/'
         }
       },
       open: true // opens browser window automatically

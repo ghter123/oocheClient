@@ -1,107 +1,145 @@
 <template>
-  <div class="bgcolor_white color_black_1 padding0">
-    <!--订单头部-->
-    <div class="row height_70 bgcolor_blue_1">
-      <div class="col-xs-6 padding_t30">
-        <span class="margin_l44 color_white_1 font_size15">{{order.statusName}}</span>
-      </div>
-      <div class="col-xs-6 padding_t25 text-right">
-        <img class="height_25 width_80 margin_r25" src="../statics/img/order/orderlogo.png" />
-      </div>
-    </div>
-    <!--订单基本信息-->
-    <div class="row margin_t10">
-      <div class="col-xs-12">
-        <div class="row">
-          <div class="col-xs-12">
-            <span class="color_red_1 font_size12 margin_l12">{{order.plateNumber}}</span>
-            <img src="../statics/img/order/dingdan.png" class="width_10 height_12 margin_l30" />
-            <span class="margin_l5 font_size12">订单号：{{order.orderCode}}</span>
+  <div>
+    <div class="flex-box width100 bgcolor_white color_black_1 flex-justify-center">
+      <div class="flex-1">
+        <!-- 订单头部 -->
+        <div class="height_75 bgcolor_blue_1 width100">
+          <div class="flex-box width100">
+            <div class="flex-1">
+              <div class="flex-box flex-justify-start flex-align-center width100 height_75">
+                <div class="box-border padding_l44 color_white_1 font_size15">{{order.statusName}}</div>
+              </div>
+            </div>
+            <div class="flex-1">
+              <div class="flex-box flex-justify-end flex-align-center width100 height_75">
+                <img class="box-border height_25 width_80 padding_r25" src="../statics/img/order/orderlogo.png" />
+              </div>
+            </div>
           </div>
         </div>
-        <div class="row margin_t10">
-          <div class="col-xs-12">
-            <img src="../statics/img/order/clock.png" class="width_12 height_12 margin_l12">
-            <span class="font_size12 margin_l5">下单时间：{{order.orderTime}}</span>
-          </div>
-        </div>
-        <div class="row margin_t10">
-          <div class="col-xs-12">
-            <img src="../statics/img/order/dingwei.png" class="width_12 height_12 margin_l12">
-            <span class="font_size12 margin_l5">车位号：{{order.parkNo}}</span>
-          </div>
-        </div>
-        <div class="row margin_t10 margin_b15" v-if="order.productName != null">
-          <div class="col-xs-12">
-            <img src="../statics/img/order/cheliangleixing.png" class="width_12 height_12 margin_l12">
-            <span class="font_size9 color_white_1 margin_l5 bgcolor_blue_2 radius6 padding_lr10 ">{{order.productName}}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--分界线-->
-    <div class="width100 bgcolor_gray_1 height_5"></div>
-    <!--订单状态列表明细-->
-    <div class="row margin_b50" v-if="orderDetail != null">
-      <div class="col-xs-12">
-        <template v-for="detail in orderDetail.handles">
-          <div class="row margin_t15">
-            <div class="col-xs-12">
-              <div class="row">
-                <div class="col-xs-6">
-                  <img src="" class="width_15 height_15 margin_l12">
-                  <span class="margin_l5 font_size14">{{orderStatusList[detail.orderStatus]}}</span>
-                </div>
-                <div class="col-xs-6 text-right">
-                  <span class="margin_r12 font_size10">{{detail.dealTime}}</span>
+
+        <!-- 订单基本信息 -->
+        <div class="margin_t10 width100 margin_b10">
+          <div class="width100 padding_lr20">
+            <div class="width100 flex-box">
+              <div class="flex-1">
+                <span class="color_red_1 font_size12">{{order.plateNumber}}</span>
+              </div>
+              <div class="flex-4">
+                <img src="../statics/img/order/dingdan.png" class="width_10 height_12 margin_l12" />
+                <span class="margin_l5 font_size12">订单号：{{order.orderCode}}</span>
+              </div>
+            </div>
+            <div class="width100 margin_t10">
+              <div class="width100 flex-box">
+                <div class="flex-1">
+                  <img src="../statics/img/order/clock.png" class="width_12 height_12">
+                  <span class="font_size12 margin_l5">下单时间：{{order.orderTime}}</span>
                 </div>
               </div>
-              <div class="row margin_t10">
-                <div class="col-xs-12 font_size12 margin_l33 padding_r52">
-                  <span>{{detail.personTypeName}}&nbsp;&nbsp;</span>
-                  <a :href="'tel:'+detail.userTel">{{detail.userName+'['+detail.userTel+']'}}&nbsp;&nbsp;</a>
-                  <span v-if="detail.dealDesc != null">{{detail.dealDesc}}</span>
+            </div>
+            <div class="width100 margin_t10">
+              <div class="width100 flex-box">
+                <div class="flex-1">
+                  <img src="../statics/img/order/dingwei.png" class="width_12 height_12">
+                  <span class="font_size12 margin_l5">车位号：{{order.parkNo}}</span>
                 </div>
               </div>
-              <div class="row margin_t10" v-if="detail.photoAddress != null && detail.photoAddress.length > 0">
-                <div class="col-xs-12 margin_l33 margin_r12">
-                  <template v-for="photo in detail.photoAddress">
-                    <img :src="imgUrl+formatDate(detail.dealTime)+'/'+photo.fileName" alt="" class="width_50 height_50">
-                  </template>
+            </div>
+            <div class="width100 margin_t10">
+              <div class="width100 flex-box">
+                <div class="flex-1">
+                  <img src="../statics/img/order/cheliangleixing.png" class="width_12 height_12 margin_t3">
+                  <span class="font_size9 color_white_1 margin_l5 bgcolor_blue_2 radius10 padding3 padding_lr10">{{order.productName}}</span>
                 </div>
               </div>
-              <div class="row margin_t10" v-if="detail.leaveMessage != null">
-                <div class="col-xs-12 margin_l33">
-                  <div class="row">
-                    <div class="col-xs-12 padding_r65">
+            </div>
+          </div>
+        </div>
+
+        <!-- 分界线 -->
+        <div class="width100 bgcolor_gray_1 height_5"></div>
+
+        <!-- 订单状态列表明细 -->
+        <div class="margin_b100" v-if="orderDetail != null">
+          <div class="width100 padding_lr20">
+            <template v-for="detail in orderDetail.handles">
+              <div class="width100 margin_t15">
+                <div class="width100 flex-box">
+                  <div class="flex-1">
+                    <img src="" class="width_15 height_15">
+                    <span class="font_size14">{{orderStatusList[detail.orderStatus] || '未配置'}}</span>
+                  </div>
+                  <div class="flex-1">
+                    <div class="width100 flex-box flex-justify-end">
+                      <div class="font_size10">{{detail.dealTime}}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="width100 margin_t10">
+                <div class="width100 flex-box">
+                  <div class="width_15 height_15">
+
+                  </div>
+                  <div class="flex-1">
+                    <span>{{detail.personTypeName}}&nbsp;&nbsp;</span>
+                    <a :href="'tel:'+detail.userTel">{{detail.userName+'['+detail.userTel+']'}}&nbsp;&nbsp;</a>
+                    <span v-if="detail.dealDesc != null">{{detail.dealDesc}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="width100 margin_t10" v-if="detail.photoAddress != null && detail.photoAddress.length > 0">
+                <div class="width100 flex-box">
+                  <div class="width_15 height_15">
+
+                  </div>
+                  <div class="flex-1">
+                    <template v-for="photo in detail.photoAddress">
+                      <img :src="'oochePictures/'+formatDate(detail.dealTime)+'/'+photo.fileName" alt="" class="width_50 height_50">
+                    </template>
+                  </div>
+                </div>
+              </div>
+              <div class="width100 margin_t10" v-if="detail.leaveMessage != null">
+                <div class="width100">
+                  <div class="width100 flex-box">
+                    <div class="width_15 height_15">
+
+                    </div>
+                    <div class="flex-1">
                       <div class="width100 border_gray_1"></div>
                     </div>
                   </div>
-                  <div class="row margin_t10">
-                    <div class="col-xs-12">
+                  <div class="width100 flex-box">
+                    <div class="width_15 height_15">
+
+                    </div>
+                    <div class="flex-1">
                       <span class="color_red_1">留言:{{detail.leaveMessage}}</span>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </template>
           </div>
-        </template>
+        </div>
+
       </div>
     </div>
   </div>
+
 </template>
 <script>
-import Global from "../Global";
 import OrderDetail from "../model/OrderDetail";
 
 export default {
   data() {
     return {
-      imgUrl:null,
       order: {},
       orderDetail: {},
       orderStatusList:{
+        "-1":"已取消",
         "1":"已预约",
         "2":"待接单",
         "3":"待洗中",
@@ -128,7 +166,6 @@ export default {
     };
   },
   async mounted() {
-    this.imgUrl = Global.imgUrl;
     this.order = this.$route.params;
     try {
       this.orderDetail = await OrderDetail.getByOrderId(this.order.orderId);
