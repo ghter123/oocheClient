@@ -61,7 +61,7 @@
         <div class="width100 bgcolor_gray_1 height_5"></div>
 
         <!-- 订单状态列表明细 -->
-        <div class="margin_b100" v-if="orderDetail != null">
+        <div class="margin_b100 font_size12" v-if="orderDetail != null">
           <div class="width100 padding_lr20">
             <template v-for="detail in orderDetail.handles">
               <div class="width100 margin_t15">
@@ -142,7 +142,7 @@ export default {
         "-1":"已取消",
         "1":"已预约",
         "2":"待接单",
-        "3":"待洗中",
+        "3":"待洗车",
         "4":"洗车中",
         "5":"待取车",
         "6":"已完成"
