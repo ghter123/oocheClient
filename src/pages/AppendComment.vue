@@ -50,7 +50,7 @@ export default {
   data() {
     return {
       order: {},
-      comment: new Comment(),
+      comment: {},
       commentMsg:''
     };
   },
@@ -58,11 +58,14 @@ export default {
     async submit() {
       this.$q.loading.show();
       try {
-        const comment = new Comment();
-        comment.comments = this.commentMsg;
-        comment.parentCommentId = this.comment.id;
-        comment.orderId = this.order.orderId;
-        comment.commentUserId = this.$store.state.user.id;
+
+        const comment = new Comment({
+          orderId: this.order.orderId,
+          commentUserId: this.$store.state.user.id,
+          comments: this.commentMsg,
+          parentCommentId: this.comment.id
+        });
+
         await Comment.addOrderComment(comment);
         this.$router.go(-1);
       } catch (error) {
